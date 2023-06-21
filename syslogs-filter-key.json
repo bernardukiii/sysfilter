@@ -1,13 +1,13 @@
 {
   "type": "service_account",
-  "project_id": "ubuntusyslogs",
-  "private_key_id": "62012666726c4262b27a3c1cc93c064d3f22c7f5",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC+VMjs1YvTzQty\n7qfXqQMtBzlxEhludtSm4Z0XNDhlD5h4O/iUmbgo0kg0RP+1ostCZClHocCUGqVA\nJTkDVuM5jarCOAQo7TYRG/LgeUvwLtlqMtkgdFHvy+aC2tt6SE4JTlxWYdzDF5nX\ntWS8SF6hbAwVGeklGdwvxsncdgO8D8Z2Ls9yQ2KnOx2RttbqsSgnZbnXZ/tMfl9Z\n65iR8iCFUgFpgSuzKsaK0FfjugaRyBAQXL6vG34hqEBLv5JNAt2cjYqeIffPu4m6\nkXtG59YqVu5sAEGm3dtf3TA2OCMKvVyzRFDvS59hOcv03CNz2LowhW66FmM9W+Wf\n3spkYRk9AgMBAAECggEAIvitpXSUWWGcx6yputLDcl/YMlouwZEEgDhGtreB4DHW\nJEtyoI1BHQEMQsxlxrBHlCaWviJuodfmgquENwSdQhsxY7fKreFuFIUz4oJvDU3y\nZVS79/5fesXWkDcZ6jVEX2neRgH7v/4DZrLd9EmA17ykWLE22ToP7thiCUfG5mQX\ne3E1mgcCFPDKo5u9XlfSUonN9+VSkKaC+xMSwD8nIdjmrvZ9ZCnSqN7+xun5WHFV\nM6c4YoFC3c7Bb7/pKpqw9SfPnBVmvbvaD5QGh5F5j0ch0O7AIoUQuW3zroVR66ZG\nXyJbp5EJqQdfXA0jvKv+PifPXjM56mg1SKjLajjtsQKBgQDkVWXtSD0U7zKa4XdR\nOmCwrv/ilLH+etM8vASmYGU1ZmrJhknpU3/3pR6U+1Q11LlljGfBnpoxt1rEp3Uf\nzUusZkrTa9Cz1lA7UYRLq+FmFKCUMbZn7zbKEwMAZXJZ1ttIjOcDhuBk55IxvpuL\nw/pOX6XaDa0LbV8h3a0ycTMs8QKBgQDVZJpzujKw2jc3NDJtTBKGJGpQ2WrtSMh5\nxefim+RRerCXelb3JOg23gxgUyFe4r8RY8xswwA9rPxC/aGYtPvlWIke+fVoUy9T\nzRSPh/oGY3QozxTVXpJURcu2TCwteR7oGNlojsWhCiSvK4LTRTdgork1BEj72ir/\n75+SbsjhDQKBgQCXqCUIAkgXxHw/JOwENpsMH1/0FcFXfisZluQbwcDXRAw/iANF\nh2FikfiLCZe4HW96hFRR5M8ToG4YWgVQNyJBArxGSsEXAYzOqWkOfb46+A5j/9Tg\nmaExfIks1TSreSqyuGukCwy12J1gjvJvVZ7GOX9GInlCMsXSD5O/AjL0cQKBgGAX\n1ZWXm4wYOBUb5DljsFPHwjh2L7h6tgxgGnPpT3+BiFQuO0s/y3Ipu9kEllpsMS5b\niorPpSQg6dgg7swdc/FrVRQl62T3ULCkAUZBLU4DKyPVXMRYufxJEdsdoic4C7ro\ntb5nzIcgUjSvm1IYMT/LByvgqhz/ua1W8ry2Nq9hAoGAAUMgpEZte2GG3t0DVctU\n3o5jHaNQKtSL532+ZX7qSWhOglQoZeACRmsE4Bf/p0aqOmfKZBgAFG+NF2Ru+4Zx\n4KVd0XED3jl4V0ndUQGuFcZ6SvWJ/CLtgu3oitqEhy6ycUMqTwD5oJfqRrTml1Pq\np7FAkj3Dfv4L95aofZmiNOY=\n-----END PRIVATE KEY-----\n",
-  "client_email": "u-syslogs-python-filter@ubuntusyslogs.iam.gserviceaccount.com",
-  "client_id": "113920168251201217525",
+  "project_id": "$PROJECT_ID",
+  "private_key_id": "$PROJECT_KEY",
+  "private_key": "$PRIVATE_KEY",
+  "client_email": "$CLIENT_EMAIL",
+  "client_id": "$CLIENT_ID",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
   "token_uri": "https://oauth2.googleapis.com/token",
   "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
-  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/u-syslogs-python-filter%40ubuntusyslogs.iam.gserviceaccount.com",
+  "client_x509_cert_url": "$CERT_URL",
   "universe_domain": "googleapis.com"
 }

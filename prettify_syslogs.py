@@ -4,6 +4,7 @@
 # Jun 16 10:25:19 mrrari14 kernel: [    0.045535] Booting paravirtualized kernel on bare hardware
 # Jun 16 12:02:58 mrrari14 systemd-sleep[25557]: Entering sleep state 'suspend'...
 # Import libs to communicate with google api to access spreadsheets
+import os
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import json
@@ -52,17 +53,17 @@ except:
 
 # Prompt the user for an option to filter for
 print('Ubuntu syslog filter')
-user_choice = input("Type 'sd' for shutdown filtering, 'b' for boot filtering, or 'sl' for sleep filtering: ")
+# user_choice = input("Type 'sd' for shutdown filtering, 'b' for boot filtering, or 'sl' for sleep filtering: ")
 
-if user_choice == 'sd':
-    filter_shutdown()
-elif user_choice == 'b':
-    filter_boot()
-elif user_choice == 'sl':
-    filter_sleep()
-else: 
-    print('Please select a valid option.')
-    quit()
+# if user_choice == 'sd':
+#     filter_shutdown()
+# elif user_choice == 'b':
+#     filter_boot()
+# elif user_choice == 'sl':
+#     filter_sleep()
+# else: 
+#     print('Please select a valid option.')
+#     quit()
 
 scopes = [
 'https://www.googleapis.com/auth/spreadsheets',
@@ -72,4 +73,6 @@ scopes = [
 credentials = ServiceAccountCredentials.from_json_keyfile_name("syslogs-filter-key.json", scopes) #access the json key you downloaded earlier 
 file = gspread.authorize(credentials) # authenticate the JSON key with gspread
 sheet = file.open("Ubuntu booting logs") #open sheet
-sheet = sheet.sheet_name #replace sheet_name with the name that corresponds to yours, e.g, it can be sheet1
+sheet = sheet.worksheet('Logs') #replace sheet_name with the name that corresponds to yours, e.g, it can be sheet1
+cell_value = sheet.acell('A2')
+print(cell_value.value)
