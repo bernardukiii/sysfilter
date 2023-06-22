@@ -21,7 +21,7 @@ shutdown_logs = []
 booting_logs = []
 sleep_logs = []
 
-# Function
+# Functions
 def filter_shutdown():
     for line in file_content.splitlines():
         if 'Reached target Shutdown' in line:
@@ -29,7 +29,15 @@ def filter_shutdown():
             shutdown_log = split_line[0] + ' ' + split_line[1] + ' ' + split_line[2] + ' ' + split_line[7]
             shutdown_logs.append(shutdown_log)
             for item in shutdown_logs:
-                print(item)
+                split_item = item.split()
+                date = split_item[0] + ' ' + split_item[1]
+                time = split_item[2]
+                process = split_item[3]
+
+                date_update_range = 'A' + str(sheet.row_count + 1)
+
+                sheet.append_row([date], value_input_option='USER_ENTERED', insert_data_option='INSERT_ROWS', table_range=date_update_range)
+
 
 def filter_boot():
     for line in file_content.splitlines():
@@ -48,27 +56,6 @@ def filter_sleep():
             sleep_logs.append(sleep_log)
             for item in sleep_logs:
                 print(item)
-
-# Catch any error that might occur
-try:
-    with open(file_path) as file:
-        file_content = file.read()
-except:
-    print('Oops, wasnt able to open the file. Please review your code or the file.')
-
-# Prompt the user for an option to filter for
-print('Ubuntu syslog filter')
-# user_choice = input("Type 'sd' for shutdown filtering, 'b' for boot filtering, or 'sl' for sleep filtering: ")
-
-# if user_choice == 'sd':
-#     filter_shutdown()
-# elif user_choice == 'b':
-#     filter_boot()
-# elif user_choice == 'sl':
-#     filter_sleep()
-# else: 
-#     print('Please select a valid option.')
-#     quit()
 
 scopes = [
 'https://www.googleapis.com/auth/spreadsheets',
@@ -115,5 +102,25 @@ credentials = ServiceAccountCredentials.from_json_keyfile_dict(credentials_dict,
 file = gspread.authorize(credentials) # authenticate the JSON key with gspread
 sheet = file.open("Ubuntu booting logs") #open sheet
 sheet = sheet.worksheet('Logs') #replace sheet_name with the name that corresponds to yours, e.g, it can be sheet1
-# cell_value = sheet.acell('A2')
-# print(cell_value.value)
+
+
+# Catch any error that might occur
+try:
+    with open(file_path) as file:
+        file_content = file.read()
+except:
+    print('Oops, wasnt able to open the file. Please review your code or the file.')
+
+# Prompt the user for an option to filter for
+print('Ubuntu syslog filter')
+user_choice = input("Type 'sd' for shutdown filtering, 'b' for boot filtering, or 'sl' for sleep filtering: ")
+
+if user_choice == 'sd':
+    filter_shutdown()
+elif user_choice == 'b':
+    filter_boot()
+elif user_choice == 'sl':
+    filter_sleep()
+else: 
+    print('Please select a valid option.')
+    quit()
