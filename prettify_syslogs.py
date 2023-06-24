@@ -159,7 +159,7 @@ os.environ["CERT_URL"] = credentials_dict["client_x509_cert_url"]
 
 credentials = ServiceAccountCredentials.from_json_keyfile_dict(credentials_dict, scopes) #access the JSON key
 file = gspread.authorize(credentials) # authenticate the JSON key with gspread
-sheet = file.open("Ubuntu booting logs") #open sheet
+sheet = file.open('Ubuntu booting logs') #open sheet
 sheet = sheet.worksheet('Logs') #replace sheet_name with the name that corresponds to yours, e.g, it can be sheet1
 
 
