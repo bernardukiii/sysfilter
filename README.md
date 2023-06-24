@@ -28,3 +28,8 @@
 <li>Add key/Create key --> Service account --> JSON file</li>
 <li>In the code replace the project values such as sheets name and keys with your projects ones. I reccomend you specify these in a <code>.env</code> file</li>
 </ol>
+
+<div>
+<h4>Output example:</h4>
+<img src="./Screenshot%20from%202023-06-24%2014-32-54.png"></img>
+</div>
