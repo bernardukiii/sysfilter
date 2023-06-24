@@ -1,10 +1,14 @@
 # Script to filter the information I want from syslog file
-# I would like to retrieve the logs about system boot/reboot/turn off 
+# I would like to retrieve the logs about system boot/reboot/turn off
 # Jun  4 21:38:15 mrrari14 systemd[973]: Reached target Shutdown.
 # Jun 16 10:25:19 mrrari14 kernel: [    0.045535] Booting paravirtualized kernel on bare hardware
 # Jun 16 12:02:58 mrrari14 systemd-sleep[25557]: Entering sleep state 'suspend'...
+
+# Each line the code reads represents 1 read request to google sheets api
+
 # Import libs to communicate with google api to access spreadsheets
 import os
+from time import sleep
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import json
@@ -13,34 +17,44 @@ from dotenv import load_dotenv
 # Load environment variables from .env file
 load_dotenv()
 
-# Define file location    
+# Define file location
 file_path = '/var/log/syslog'
 user_name = 'mrrari14'
 sys_prefix = 'systemd'
+system_logs = []
 shutdown_logs = []
 booting_logs = []
 sleep_logs = []
 
 # Functions
 def filter_shutdown():
-    for line in file_content.splitlines():
+    print('This can take a minute, please dont exit the program.')
+    sleep(60)
+    for line in system_logs:
         if 'Reached target Shutdown' in line:
             split_line = line.split()
             shutdown_log = split_line[0] + ' ' + split_line[1] + ' ' + split_line[2] + ' ' + split_line[7]
             shutdown_logs.append(shutdown_log)
-            for item in shutdown_logs:
-                split_item = item.split()
-                date = split_item[0] + ' ' + split_item[1]
-                time = split_item[2]
-                process = split_item[3]
 
-                date_update_range = 'A' + str(sheet.row_count + 1)
+    logs_batch = 20
+    batch_items = shutdown_logs[:logs_batch]
 
-                sheet.append_row([date], value_input_option='USER_ENTERED', insert_data_option='INSERT_ROWS', table_range=date_update_range)
-
-
+    for item in batch_items:
+        split_item = item.split()
+        date = split_item[0] + ' ' + split_item[1]
+        time = split_item[2]
+        process = split_item[3]
+    # Write date to sheets
+        date_update_range = 'A' + str(sheet.row_count + 1)
+        sheet.update_acell([date], value_input_option='USER_ENTERED', insert_data_option='INSERT_ROWS', table_range=date_update_range)
+    # # Write time to sheets
+    #     date_update_range = 'A' + str(sheet.row_count + 1)
+    #     sheet.append_row([date], value_input_option='USER_ENTERED', insert_data_option='INSERT_ROWS', table_range=date_update_range)
+    # # Write process to sheets 
+    #     date_update_range = 'A' + str(sheet.row_count + 1)
+    #     sheet.append_row([date], value_input_option='USER_ENTERED', insert_data_option='INSERT_ROWS', table_range=date_update_range)
 def filter_boot():
-    for line in file_content.splitlines():
+    for line in system_logs:
         if 'Booting paravirtualized kernel on bare hardware' in line:
             split_line = line.split()
             booting_log = split_line[0] + ' ' + split_line[1] + ' ' + split_line[2] + ' ' + split_line[7]
@@ -49,7 +63,7 @@ def filter_boot():
                 print(item)
 
 def filter_sleep():
-    for line in file_content.splitlines():
+    for line in system_logs:
         if "Entering sleep state 'suspend'..." in line:
             split_line = line.split()
             sleep_log = split_line[0] + ' ' + split_line[1] + ' ' + split_line[2] + ' ' + split_line[5] + ' ' + split_line[6] + ' ' + split_line[7] + ' ' + split_line[8]
@@ -108,6 +122,8 @@ sheet = sheet.worksheet('Logs') #replace sheet_name with the name that correspon
 try:
     with open(file_path) as file:
         file_content = file.read()
+        for line in file_content.splitlines():
+            system_logs.append(line)
 except:
     print('Oops, wasnt able to open the file. Please review your code or the file.')
 
@@ -121,6 +137,6 @@ elif user_choice == 'b':
     filter_boot()
 elif user_choice == 'sl':
     filter_sleep()
-else: 
+else:
     print('Please select a valid option.')
     quit()
