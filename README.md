@@ -31,5 +31,5 @@
 
 <div>
 <h4>Expected output result:</h4>
-<img src="./Screenshot%20from%202023-06-24%2014-32-54.png"></img>
+<img src="./expected_result.png"></img>
 </div>
