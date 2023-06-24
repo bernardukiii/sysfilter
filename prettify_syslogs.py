@@ -36,7 +36,7 @@ def filter_shutdown():
             shutdown_log = split_line[0] + ' ' + split_line[1] + ' ' + split_line[2] + ' ' + split_line[7]
             shutdown_logs.append(shutdown_log)
 
-    logs_batch = 20
+    logs_batch = 60
     batch_items = shutdown_logs[:logs_batch]
 
     for item in batch_items:
@@ -45,14 +45,28 @@ def filter_shutdown():
         time = split_item[2]
         process = split_item[3]
     # Write date to sheets
-        date_update_range = 'A' + str(sheet.row_count + 1)
-        sheet.update_acell([date], value_input_option='USER_ENTERED', insert_data_option='INSERT_ROWS', table_range=date_update_range)
-    # # Write time to sheets
-    #     date_update_range = 'A' + str(sheet.row_count + 1)
-    #     sheet.append_row([date], value_input_option='USER_ENTERED', insert_data_option='INSERT_ROWS', table_range=date_update_range)
-    # # Write process to sheets 
-    #     date_update_range = 'A' + str(sheet.row_count + 1)
-    #     sheet.append_row([date], value_input_option='USER_ENTERED', insert_data_option='INSERT_ROWS', table_range=date_update_range)
+        # Construct the row to be appended
+        row = [date, time, process]
+        # Determine the range to append the row
+        table_range = 'A' + str(sheet.row_count + 1) + ':C' + str(sheet.row_count + 1)
+        # Append the row to the sheet
+        sheet.append_row(row, value_input_option='USER_ENTERED', insert_data_option='INSERT_ROWS', table_range=table_range)
+        # sheet.format('C', {
+        #     'backgroundColor': {
+        #         'red': 1,
+        #         'green': 0,
+        #         'blue': 0,
+        #         'alpha': 0.5
+        #     },
+        #     'textFormat': {
+        #         'foregroundColor': {
+        #             'red': 255,
+        #             'green': 255,
+        #             'blue': 255
+        #         }
+        #     },
+        # })
+
 def filter_boot():
     for line in system_logs:
         if 'Booting paravirtualized kernel on bare hardware' in line:
