@@ -68,22 +68,53 @@ def filter_shutdown():
         # })
 
 def filter_boot():
+    print('This can take a minute, please dont exit the program.')
+    sleep(60)
     for line in system_logs:
         if 'Booting paravirtualized kernel on bare hardware' in line:
             split_line = line.split()
             booting_log = split_line[0] + ' ' + split_line[1] + ' ' + split_line[2] + ' ' + split_line[7]
             booting_logs.append(booting_log)
-            for item in booting_logs:
-                print(item)
+
+    logs_batch = 60
+    batch_items = booting_logs[:logs_batch]
+
+    for item in batch_items:
+        split_item = item.split()
+        date = split_item[0] + ' ' + split_item[1]
+        time = split_item[2]
+        process = split_item[3]
+    # Write date to sheets
+        # Construct the row to be appended
+        row = [date, time, process]
+        # Determine the range to append the row
+        table_range = 'A' + str(sheet.row_count + 1) + ':C' + str(sheet.row_count + 1)
+        # Append the row to the sheet
+        sheet.append_row(row, value_input_option='USER_ENTERED', insert_data_option='INSERT_ROWS', table_range=table_range)
 
 def filter_sleep():
+    print('This can take a minute, please dont exit the program.')
+    sleep(60)
     for line in system_logs:
         if "Entering sleep state 'suspend'..." in line:
             split_line = line.split()
             sleep_log = split_line[0] + ' ' + split_line[1] + ' ' + split_line[2] + ' ' + split_line[5] + ' ' + split_line[6] + ' ' + split_line[7] + ' ' + split_line[8]
             sleep_logs.append(sleep_log)
-            for item in sleep_logs:
-                print(item)
+
+    logs_batch = 60
+    batch_items = sleep_logs[:logs_batch]
+    for item in batch_items:
+        split_item = item.split()
+        date = split_item[0] + ' ' + split_item[1]
+        time = split_item[2]
+        process = split_item[4]
+    # Write date to sheets
+        # Construct the row to be appended
+        row = [date, time, process]
+        # Determine the range to append the row
+        table_range = 'A' + str(sheet.row_count + 1) + ':C' + str(sheet.row_count + 1)
+        # Append the row to the sheet
+        sheet.append_row(row, value_input_option='USER_ENTERED', insert_data_option='INSERT_ROWS', table_range=table_range)
 
 scopes = [
 'https://www.googleapis.com/auth/spreadsheets',
